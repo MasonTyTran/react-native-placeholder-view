@@ -1,0 +1,84 @@
+buildscript {
+  ext.getExtOrDefault = {name ->
+    return rootProject.ext.has(name) ? rootProject.ext.get(name) : project.properties['PlaceholderView_' + name]
+  }
+
+  repositories {
+    google()
+    mavenCentral()
+  }
+
+  dependencies {
+    classpath "com.android.tools.build:gradle:8.7.2"
+    // noinspection DifferentKotlinGradleVersion
+    classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${getExtOrDefault('kotlinVersion') ?: '1.8.21'}" // Use 1.8.21 as fallback
+  }
+}
+
+
+apply plugin: "com.android.library"
+apply plugin: "kotlin-android"
+
+apply plugin: "com.facebook.react"
+
+def getExtOrIntegerDefault(name) {
+  return rootProject.ext.has(name) ? rootProject.ext.get(name) : (project.properties["PlaceholderView_" + name]).toInteger()
+}
+
+android {
+  namespace "com.tytv.placeholderview"
+
+  compileSdkVersion getExtOrIntegerDefault("compileSdkVersion") ?: 35 // Use 35 as fallback
+
+  defaultConfig {
+    minSdkVersion getExtOrIntegerDefault("minSdkVersion") ?: 24 // Use 24 as fallback
+    targetSdkVersion getExtOrIntegerDefault("targetSdkVersion") ?: 35 // Use 35 as fallback
+  }
+
+  buildFeatures {
+    buildConfig true
+  }
+
+  buildTypes {
+    release {
+      minifyEnabled false
+    }
+  }
+
+  lintOptions {
+    disable "GradleCompatible"
+  }
+
+  compileOptions {
+    sourceCompatibility JavaVersion.VERSION_1_8
+    targetCompatibility JavaVersion.VERSION_1_8
+  }
+
+  sourceSets {
+    main {
+      java.srcDirs += [
+        "generated/java",
+        "generated/jni"
+      ]
+    }
+  }
+}
+
+repositories {
+  mavenCentral()
+  google()
+}
+
+def kotlin_version = getExtOrDefault("kotlinVersion") ?: '1.8.21' // Use 1.8.21 as fallback
+
+dependencies {
+  implementation "com.facebook.react:react-android"
+  implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+  implementation 'com.facebook.shimmer:shimmer:0.5.0@aar'
+}
+
+react {
+  jsRootDir = file("../src/")
+  libraryName = "PlaceholderView"
+  codegenJavaPackageName = "com.tytv.placeholderview"
+}

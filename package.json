@@ -1,0 +1,60 @@
+{
+  "name": "react-native-shimmer",
+  "version": "0.1.0",
+  "description": "Simple shimmering effect in React Native",
+  "main": "index.ts",
+  "scripts": {
+    "test": "eslint src/**/*.ts",
+    "format": "prettier --write src/**/*.ts",
+    "build": "tsc"
+  },
+  "keywords": [
+    "react-native",
+    "react-component",
+    "react-native-component",
+    "react",
+    "mobile",
+    "ios",
+    "ui",
+    "shimmer",
+    "activityindicator",
+    "indeterminate",
+    "spinner",
+    "animation"
+  ],
+  "license": "MIT",
+  "devDependencies": {
+    "babel-eslint": "^10.0.1",
+    "eslint": "^5.12.1",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-config-prettier": "^3.6.0",
+    "eslint-plugin-import": "^2.15.0",
+    "eslint-plugin-jsx-a11y": "^6.1.2",
+    "eslint-plugin-prettier": "^3.0.1",
+    "eslint-plugin-react": "^7.12.4",
+    "prettier": "^1.16.1",
+    "typescript": "^5.0.0",
+    "@types/react": "^18.0.0",
+    "@types/react-native": "^0.72.0"
+  },
+  "peerDependencies": {
+    "react": ">=16.0.0-alpha.12 <17.0.0",
+    "react-native": ">=0.45.1 <1.0.0"
+  },
+  "dependencies": {
+    "prop-types": "^15.6.0"
+  },
+  "codegenConfig": {
+    "name": "placeholderViewSpecs",
+    "type": "components",
+    "jsSrcsDir": "specs",
+    "android": {
+      "javaPackageName": "com.tytv.placeholderview"
+    },
+    "ios": {
+      "componentProvider": {
+        "RNPlaceholder": "RCTPlaceholderView"
+      }
+    }
+  }
+}

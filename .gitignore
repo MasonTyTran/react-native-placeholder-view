@@ -1,0 +1,106 @@
+# Builds
+#
+.output
+
+# Productivity
+#
+TODO.md
+
+# Editors
+#
+# .sublime-workspace
+# .vscode
+
+# OSX
+#
+.DS_Store
+
+# Xcode
+#
+build/
+*.pbxuser
+!default.pbxuser
+*.mode1v3
+!default.mode1v3
+*.mode2v3
+!default.mode2v3
+*.perspectivev3
+!default.perspectivev3
+xcuserdata
+*.xccheckout
+*.moved-aside
+DerivedData
+*.hmap
+*.ipa
+*.xcuserstate
+**/.xcode.env.local
+
+# Android/IntelliJ
+#
+build/
+.idea
+.gradle
+local.properties
+*.iml
+*.hprof
+.cxx/
+
+# node.js
+#
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# BUCK
+buck-out/
+\.buckd/
+
+# build folder
+lib/
+dist/
+.jest/cache
+coverage
+android/app/src/main/assets/index.android.bundle
+android/app/src/main/assets/index.android.bundle.meta
+android/app/src/main/res-react
+reclubmobile.app.dSYM.zip
+ios/reclubmobile/main.jsbundle.meta
+ios/reclubmobile/main.jsbundle.zip
+ios/assets/assets
+main.jsbundle
+ios/reclubmobile/assets/assets
+ios/Index
+ios/Pods
+.vscode/.react/index.map
+
+# Ruby / CocoaPods
+**/Pods/
+/vendor/bundle/
+
+## i18n Script
+input.xlsx
+output.xlsx
+
+
+# testing
+/coverage
+
+# testing
+/coverage
+
+# Yarn
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
+
+# Expo
+.expo
+dist/
+web-build/
+
+.env
+.env.prod
+ios/tmp.xcconfig
