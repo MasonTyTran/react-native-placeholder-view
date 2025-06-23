@@ -9,9 +9,9 @@
 #import "ShimmerLayer.h"
 #import <UIKit/UIKit.h>
 #import <RCTPlaceholderView.h>
-#import <react/renderer/components/ShimmerSpecs/ComponentDescriptors.h>
-#import <react/renderer/components/ShimmerSpecs/Props.h>
-#import <react/renderer/components/ShimmerSpecs/RCTComponentViewHelpers.h>
+#import <react/renderer/components/placeholderViewSpecs/ComponentDescriptors.h>
+#import <react/renderer/components/placeholderViewSpecs/Props.h>
+#import <react/renderer/components/placeholderViewSpecs/RCTComponentViewHelpers.h>
 
 using namespace facebook::react;
 
@@ -41,28 +41,7 @@ using namespace facebook::react;
 - (void)updateProps:(Props::Shared const &)props oldProps:(Props::Shared const &)oldProps
 {
     [super updateProps:props oldProps:oldProps];
-    const auto &oldViewProps = *std::static_pointer_cast<RNPlaceholderProps const>(oldProps ? oldProps : _props); //_props equ
-    const auto &newViewProps = *std::static_pointer_cast<RNPlaceholderProps const>(props);
-    
-    //  date
-    if(oldViewProps.shimmerColor != newViewProps.shimmerColor) {
-        UIColor *color = [self colorWithHexString:newViewProps.shimmerColor];
-        _shimmerLayer.shimmerColor = color;
-    }
-    
-    if(oldViewProps.highlightColor != newViewProps.highlightColor) {
-        UIColor *color = [self colorWithHexString:newViewProps.highlightColor];
-        _shimmerLayer.highlightColor = color;
-    }
-    
-    if(oldViewProps.animationDuration != newViewProps.animationDuration) {
-        _shimmerLayer.animationDuration = newViewProps.animationDuration;
-    }
-    
-    if(oldViewProps.shimmerDirection != newViewProps.shimmerDirection) {
-        ShimmerDirection direction = ConvertToShimmerDirection(newViewProps.shimmerDirection);
-        [_shimmerLayer updateDirection:direction];
-    }
+    [self extractProps];
 }
 
 - (void)layoutSubviews
@@ -121,6 +100,23 @@ using namespace facebook::react;
                            alpha:alpha];
 }
 
+- (void)extractProps
+{
+    const auto &props = *std::static_pointer_cast<RNPlaceholderProps const>(_props); //_props equ
+    //  date
+    UIColor *shimmerColor = [self colorWithHexString:props.shimmerColor];
+    _shimmerLayer.shimmerColor = shimmerColor;
+    
+    UIColor *highlightColor = [self colorWithHexString:props.highlightColor];
+    _shimmerLayer.highlightColor = highlightColor;
+    
+    _shimmerLayer.animationDuration = props.animationDuration;
+    
+    ShimmerDirection direction = ConvertToShimmerDirection(props.shimmerDirection);
+    [_shimmerLayer updateDirection:direction];
+    
+}
+
 ShimmerDirection ConvertToShimmerDirection(RNPlaceholderShimmerDirection direction) {
     switch (direction) {
         case RNPlaceholderShimmerDirection::LeftToRight:
@@ -137,7 +133,5 @@ ShimmerDirection ConvertToShimmerDirection(RNPlaceholderShimmerDirection directi
 }
 
 @end
-
-
 
 #endif
